@@ -19,3 +19,4 @@ export class GlobalConstants {
 
   public static error: string = 'ভুল হয়েছে';
 }
+
