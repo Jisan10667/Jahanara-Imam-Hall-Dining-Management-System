@@ -19,6 +19,7 @@
     "fs": "^0.0.1-security",
     "html-pdf": "^1.5.0",
     "jsonwebtoken": "^9.0.2",
+    "latest": "^0.2.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.2",
     "mysql3": "^0.6.0",

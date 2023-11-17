@@ -129,8 +129,7 @@
       </li>
     </ul>
   </div>
-
-  <!-- <div id="contact">
+  <div id="contact">
     <div class="container">
       <div class="row">
         <div class="contact-left">
@@ -151,24 +150,33 @@
             ></a>
             <a href=""><i class="fa-brands fa-snapchat"></i></a>
           </div>
-          <a href="images/my-cv.pdf" download class="btn btn2">Download CV</a>
+          <!-- <a href="images/my-cv.pdf" download class="btn btn2">Download CV</a> -->
         </div>
         <div class="contact-right">
-          <form name="submit-to-google-sheet">
+          <form name="submit-to-google-sheet" (ngSubmit)="onSubmit()">
             <input type="text" name="Name" placeholder="Your Name" required />
-            <input
-              type="email"
-              name="Email"
-              placeholder="Your Email"
-              required
-            />
-            <textarea name="Message" rows="6" placeholder="Your Message">
-            </textarea>
-            <button name="submit" class="btn btn2">Submit</button>
+            <input type="email" name="Email" placeholder="Your Email" required />
+            <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+            <button type="submit" class="btn btn2">Submit</button>
           </form>
           <span id="msg"></span>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
+  
 </section>
+
+
+<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbygjd5kE0p5TFQ72j0YHsDj_Zscy449fdn0cJbV0fifeomgDMA6kI-Q3LxWcdXCRLtf/exec"
+  const formGoogleSheet = document.forms['submit-to-google-sheet']
+
+  formGoogleSheet.addEventListener('submit', e => {
+    console.log('Event listener setup');
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(formGoogleSheet)})
+      .then(response => console.log('Google Sheets Success!', response))
+      .catch(error => console.error('Google Sheets Error!', error.message))
+  })
+</script>
