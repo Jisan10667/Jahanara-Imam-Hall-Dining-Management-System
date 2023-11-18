@@ -35,8 +35,7 @@
     </ng-container>
 
     <ng-container matColumnDef="paymentMethod">
-      <th mat-header-cell *matHeaderCellDef>মূল্যপরিশোধ পদ্ধতি
-      </th>
+      <th mat-header-cell *matHeaderCellDef>মূল্যপরিশোধ পদ্ধতি</th>
       <td mat-cell *matCellDef="let element">
         {{ element.paymentMethod }}
       </td>
@@ -69,15 +68,6 @@
           (click)="downloadReportAction(element)"
         >
           <mat-icon>summarize</mat-icon>
-        </button>
-
-        <button
-          mat-icon-button
-          color="primary"
-          matTooltip="Delete"
-          (click)="handleDeleteAction(element)"
-        >
-          <mat-icon>ডিলিট করুন</mat-icon>
         </button>
       </td>
     </ng-container>

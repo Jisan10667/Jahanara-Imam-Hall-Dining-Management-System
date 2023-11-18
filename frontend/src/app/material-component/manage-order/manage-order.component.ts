@@ -88,6 +88,7 @@ export class ManageOrderComponent implements OnInit {
         this.manageOrderForm.patchValue({
           name: this.user.name,
           email: this.user.email,
+          
         });
       } catch (error) {
         console.error('Error decoding token:', error);
