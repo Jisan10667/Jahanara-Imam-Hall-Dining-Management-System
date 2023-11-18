@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { GlobalConstants } from 'src/app/shared/global-constants';
 import { saveAs } from 'file-saver';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-manage-order',
@@ -29,6 +30,7 @@ export class ManageOrderComponent implements OnInit {
   price: any;
   totalAmount: number = 0;
   responseMessage: any;
+  user: any;
 
   constructor(
     private fb: FormBuilder,
@@ -67,6 +69,30 @@ export class ManageOrderComponent implements OnInit {
       price: [null, [Validators.required]],
       total: [0, [Validators.required]],
     });
+    const token: string = localStorage.getItem('token')!;
+    let tokenPayload: any;
+    // try {
+    //   tokenPayload = jwt_decode(token);
+    //   // Check if the user is an admin based on the role in the token
+      
+      
+    // } catch (error) {
+    //   localStorage.clear();
+    
+    // }
+    if (token) {
+      try {
+        const decodedToken: any = jwt_decode(token);
+        this.user = { email: decodedToken.email, name: decodedToken.name };
+        // Set initial values for name and email fields
+        this.manageOrderForm.patchValue({
+          name: this.user.name,
+          email: this.user.email,
+        });
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
   }
 
   getCategories() {
