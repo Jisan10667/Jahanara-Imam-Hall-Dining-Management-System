@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { saveAs } from 'file-saver';
+import jwt_decode from 'jwt-decode';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { BillService } from 'src/app/services/bill.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { GlobalConstants } from 'src/app/shared/global-constants';
-import { saveAs } from 'file-saver';
-import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-manage-order',
@@ -24,7 +24,7 @@ export class ManageOrderComponent implements OnInit {
     'total',
     'edit',
   ];
-  dataSource: any= [];
+  dataSource: any = [];
   categories: any = [];
   products: any = [];
   price: any;
@@ -74,21 +74,24 @@ export class ManageOrderComponent implements OnInit {
     // try {
     //   tokenPayload = jwt_decode(token);
     //   // Check if the user is an admin based on the role in the token
-      
-      
+
     // } catch (error) {
     //   localStorage.clear();
-    
+
     // }
     if (token) {
       try {
         const decodedToken: any = jwt_decode(token);
-        this.user = { email: decodedToken.email, name: decodedToken.name };
+        this.user = {
+          email: decodedToken.email,
+          name: decodedToken.name,
+          phone: decodedToken.phone,
+        };
         // Set initial values for name and email fields
         this.manageOrderForm.patchValue({
           name: this.user.name,
           email: this.user.email,
-          
+          contactNumber: this.user.phone,
         });
       } catch (error) {
         console.error('Error decoding token:', error);
@@ -209,11 +212,10 @@ export class ManageOrderComponent implements OnInit {
       price: formData.price,
       total: formData.total,
     });
-  
+
     this.dataSource = [...this.dataSource];
     this.snackBar.openSnackBar(GlobalConstants.productAdded, 'success');
   }
-  
 
   handleDeletAction(value: any, element: any) {
     this.totalAmount -= element.total;

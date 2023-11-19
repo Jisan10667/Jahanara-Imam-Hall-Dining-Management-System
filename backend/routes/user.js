@@ -54,7 +54,7 @@ router.post("/signup", (req, res) => {
 router.post("/login", (req, res) => {
   const user = req.body;
   
-  let query = "select email, password, name, role, status from user where email=?";
+  let query = "select email, password, name, phone,role, status from user where email=?";
   connection.query(query, [user.email], (err, results) => {
     if (!err) {
       if (results.length <= 0) {
@@ -76,10 +76,11 @@ router.post("/login", (req, res) => {
             email: results[0].email,
             role: results[0].role,
             name: results[0].name,
+            phone:results[0].phone
           };
 
           const accessToken = jwt.sign(response, process.env.SECRET, {
-            expiresIn: "1h",
+            expiresIn: "365h",
           });
 
           res.status(200).json({
