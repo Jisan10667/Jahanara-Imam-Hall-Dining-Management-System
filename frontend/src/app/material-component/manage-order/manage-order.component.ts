@@ -86,13 +86,17 @@ export class ManageOrderComponent implements OnInit {
           email: decodedToken.email,
           name: decodedToken.name,
           phone: decodedToken.phone,
+          role:decodedToken.role
         };
         // Set initial values for name and email fields
-        this.manageOrderForm.patchValue({
-          name: this.user.name,
-          email: this.user.email,
-          contactNumber: this.user.phone,
-        });
+        if(this.user.role=="user"){
+            this.manageOrderForm.patchValue({
+              name: this.user.name,
+              email: this.user.email,
+              contactNumber: this.user.phone,
+            });
+        }
+        
       } catch (error) {
         console.error('Error decoding token:', error);
       }
