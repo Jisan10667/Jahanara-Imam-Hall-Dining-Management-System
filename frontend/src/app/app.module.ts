@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {NgxPrintModule} from 'ngx-print';
 import { MatSelectModule } from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -59,10 +59,12 @@ const ngx_ui_loader_config: NgxUiLoaderConfig = {
     ForgotPasswordComponent,
     LoginComponent,
     
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxPrintModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
